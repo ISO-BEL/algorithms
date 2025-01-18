@@ -1,72 +1,89 @@
-#include "funcdefinitions.h"
+#include "stack.h"
 
-#define STACK_SIZE 100
-int stack[STACK_SIZE];
-int top = 0;
-
-
-void push(int number)
+void push(int n)	
 {
-	if(top < STACK_SIZE){
-		stack[top] = number;
-		top++;
-		return;
+	if(top < size)
+	{
+	stack[top] = n;
+	top++;
 	}
-	printf("stack is full\n");
+	else
+		printf("\npush failed check if stack is full");	
 }
-
 int pop(void)
 {
 	if(top == 0)
 	{
-		printf("stack is empty\n");
+		printf("\npop failed, check if stack is empty");
 		return -1;
 	}
 	else
 	{
-	top--;
-	return stack[top];
+	//set postion to 0 before returning (pop out) extra and probably not needed
+	int store = stack[top];
+	stack[top] = 0;
+	top--; 
+	return store;
 	}
 }
-
-bool check_empty(void)
+void clear(void)
 {
-	if(top == -1)
-	{
-		return true; 
-	}
-	else { return false; }
+	for(; top > 0; top--)
+		stack[top] = 0;
 }
-
+void dupe(int dupes)
+{
+	//requested to many dupes
+	int dupe_value;
+	if(top + dupes > size)
+	{
+		printf("\nrequested to many dupes for size\n");
+	}
+	else
+	{
+		dupe_value = stack[top - 1];
+		while(dupes > 0)
+		{
+			stack[top++] = dupe_value;
+			dupes--;
+		}
+	}
+}
+void print(void)
+{
+	for(int i = top; i >= 0; i--)
+	{
+		if(i == top)
+		{
+			printf("\n[x]");
+		}
+		else
+			printf("\n[%d]", stack[i]);
+	}
+	
+	printf("\ntop of stack is position %d", top);
+}
 bool check_full(void)
 {
-	if(top >= STACK_SIZE - 1)
+	if(top == size)
+	{ 
+		return true;
+	}
+	else 
+	{ 
+		printf("\nyou are [%d] positions away from full\n", size - 1 - top);
+		return false;
+	}
+}
+bool check_empty(void)
+{
+	if(top == 0)
 	{
 		return true;
 	}
-	else { return false; }
-}
-
-void clear(void)
-{
-	for(top; top >= 0; top--)
+	else
 	{
-		stack[top] = 0;		
+		printf("\nyou are [%d] positions away from empty\n", top);
+		return false;
 	}
-	return;
-}
-
-void stack_print(void)
-{
-	U8 spaces_remaining = STACK_SIZE - top;
-
-	int i = top - 1;
-	while(i >= 0)
-	{
-		printf("[ %d ]\n", stack[i]);
-		i--;	
-	}
-
-	printf("stack spaces left:: %d\n", spaces_remaining);
-	return;
 }

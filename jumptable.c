@@ -35,7 +35,7 @@ int main(void)
 jump_vv jumptable[4] = {func1, func2, func3, func4};
 jumptable[func_4](); //prints 4
 
-uint8_t status = jmp_on_index(3);
+int status = jmp_on_index(3);
 
 return 0;
 }
