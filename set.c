@@ -7,13 +7,7 @@ struct Set
 	int *values;
 	int size;
 };
-/* --------------------------------------------------------------------- */
-// set behavior
-// --
-// should not accept duplicates, potentionally return; and say which had a dup;
-// should increase in size as you input more values
-// --
-/* ---------------------------------------------------------------------- */
+
 void set_init(struct Set *setA);
 void set_insert(struct Set *setA, int num);
 void set_from_array(int *a, int size, struct Set *setA);
@@ -21,45 +15,6 @@ void set_print(struct Set *setA);
 void set_union(struct Set *setA, struct Set *setB, struct Set *setC);
 void set_intersection(struct Set *setA, struct Set *setB, struct Set *setC);
 void set_subtract(struct Set *setA, struct Set *setB, struct Set *setC);
-
-int main(void)
-{
-	int a[10];
-	for(int i = 0; i < 10; i++)
-		a[i] = i;
-
-	struct Set setA;
-	struct Set setB;
-	struct Set setC;
-	struct Set setD;
-	struct Set setE;
-
-	set_init(&setA);
-	set_insert(&setA, 5);
-	set_insert(&setA, 3);
-	set_insert(&setA, 4);
-	set_insert(&setA, 5);
-
-	set_init(&setB);
-	set_from_array(a, 10, &setB);
-	set_print(&setA);
-	set_print(&setB);
-
-	set_init(&setC);
-	set_union(&setA, &setB, &setC);
-	set_print(&setC);
-
-	set_init(&setD);
-	set_intersection(&setA, &setB, &setD);
-	set_print(&setD);
-	set_insert(&setD, 18);
-	set_print(&setD);
-
-	set_init(&setE);
-	set_subtract(&setB, &setA, &setE);
-	set_print(&setE);
-	exit(0);
-} 
 
 void set_init(struct Set *setA)
 {
